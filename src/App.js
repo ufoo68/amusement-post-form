@@ -1,24 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { API, graphqlOperation } from "aws-amplify";
+import { addAquarium, addOnsen, addShrime } from './graphql/mutations'
 
-function App() {
+const App = () => {
+
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
+  const [summary, setSummary] = useState('')
+  const [category, setCategory] = useState('aquarium')
+
+  const amusement = {
+    title,
+    url,
+    summary,
+  }
+
+  const post = async () => {
+    switch (category) {
+      case 'aquarium':
+        await API.graphql(graphqlOperation(addAquarium, { amusement }))
+        return
+      case 'shrime':
+        await API.graphql(graphqlOperation(addShrime, { amusement }))
+        return
+      case 'onsen':
+        await API.graphql(graphqlOperation(addOnsen, { amusement }))
+        return
+      default:
+        return
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="select">
+        <select value={category} onChange={(e) => setCategory(e.target.value)} >
+          <option value={'aquarium'}>オンライン水族館</option>
+          <option value={'shrime'}>オンライン神社</option>
+          <option value={'onsen'}>オンライン温泉</option>
+        </select>
+      </div>
+      <div className="input">
+        title:
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+      </div>
+      <div>
+        url:
+        <input value={url} onChange={(e) => setUrl(e.target.value)} />
+      </div>
+      <div>
+        summary:
+        <input value={summary} onChange={(e) => setSummary(e.target.value)} />
+      </div>
+      <div className="button">
+        <button onClick={post} >submit</button>
+      </div>
     </div>
   );
 }

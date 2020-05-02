@@ -1,0 +1,23 @@
+{
+    "amusement": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amusementpostform-amusement-202859-authRole",
+            "UnauthRoleArn": "arn:aws:iam::314405667869:role/amplify-amusementpostform-amusement-202859-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::314405667869:role/amplify-amusementpostform-amusement-202859-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "amplify-amusementpostform-amusement-202859-deployment",
+            "UnauthRoleName": "amplify-amusementpostform-amusement-202859-unauthRole",
+            "StackName": "amplify-amusementpostform-amusement-202859",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:314405667869:stack/amplify-amusementpostform-amusement-202859/288677d0-8c68-11ea-9240-0a50f89864ca",
+            "AmplifyAppId": "d3uvmsinb27yv9"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3uvmsinb27yv9",
+                    "type": "manual"
+                }
+            }
+        }
+    }
+}
