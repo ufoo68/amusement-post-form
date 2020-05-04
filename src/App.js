@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import './App.css';
-import { API, graphqlOperation } from "aws-amplify";
+import React, { useState } from 'react'
+import './App.css'
+import { API, graphqlOperation } from 'aws-amplify'
+import { Button, Input, TextareaAutosize, Select, MenuItem } from '@material-ui/core'
 import { addAquarium, addOnsen, addShrime } from './graphql/mutations'
 
 const App = () => {
@@ -9,11 +10,13 @@ const App = () => {
   const [url, setUrl] = useState('')
   const [summary, setSummary] = useState('')
   const [category, setCategory] = useState('aquarium')
+  const [writedTitle, setWritedTitle] = useState(false)
+  const [writedUrl, setWritedUrl] = useState(false)
 
   const amusement = {
     title,
     url,
-    summary,
+    summary: summary || null,
   }
 
   const post = async () => {
@@ -34,30 +37,41 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="select">
-        <select value={category} onChange={(e) => setCategory(e.target.value)} >
-          <option value={'aquarium'}>オンライン水族館</option>
-          <option value={'shrime'}>オンライン神社</option>
-          <option value={'onsen'}>オンライン温泉</option>
-        </select>
+      <div className="category">
+        <div>カテゴリ</div>
+        <div>
+          <Select value={category} onChange={(e) => setCategory(e.target.value)} >
+            <MenuItem value={'aquarium'}>オンライン水族館</MenuItem>
+            <MenuItem value={'shrime'}>オンライン神社</MenuItem>
+            <MenuItem value={'onsen'}>オンライン温泉</MenuItem>
+          </Select>
+        </div>
       </div>
-      <div className="input">
-        title:
-        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+      <div className="title">
+        <div>タイトル</div>
+        <Input value={title} onChange={(e) => {
+          setTitle(e.target.value)
+          setWritedTitle(!!e.target.value)
+        }} />
       </div>
-      <div>
-        url:
-        <input value={url} onChange={(e) => setUrl(e.target.value)} />
+      <div className="url">
+        <div>URL</div>
+        <Input value={url} className="urlInput" onChange={(e) => {
+          setUrl(e.target.value)
+          setWritedUrl(!!e.target.value)
+        }} />
       </div>
-      <div>
-        summary:
-        <input value={summary} onChange={(e) => setSummary(e.target.value)} />
+      <div className="description">
+        <div>説明（省略可）</div>
+        <TextareaAutosize rowsMin={4} value={summary} onChange={(e) => setSummary(e.target.value)} className="textArea" />
       </div>
       <div className="button">
-        <button onClick={post} >submit</button>
+        <Button variant="contained" color="primary" onClick={post} disabled={!(writedUrl && writedTitle)}>
+          投稿する
+        </Button>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
