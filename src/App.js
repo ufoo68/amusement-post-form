@@ -19,20 +19,30 @@ const App = () => {
     summary: summary || null,
   }
 
+  const clearAll = () => {
+    setTitle('')
+    setUrl('')
+    setSummary('')
+    setWritedUrl(false)
+    setWritedTitle(false)
+  }
+
   const post = async () => {
     switch (category) {
       case 'aquarium':
         await API.graphql(graphqlOperation(addAquarium, { amusement }))
-        return
+        break
       case 'shrime':
         await API.graphql(graphqlOperation(addShrime, { amusement }))
-        return
+        break
       case 'onsen':
         await API.graphql(graphqlOperation(addOnsen, { amusement }))
-        return
+        break
       default:
-        return
+        break
     }
+    alert('投稿ありがとうございます')
+    clearAll()
   }
 
   return (
