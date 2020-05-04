@@ -13,12 +13,6 @@ const App = () => {
   const [writedTitle, setWritedTitle] = useState(false)
   const [writedUrl, setWritedUrl] = useState(false)
 
-  const amusement = {
-    title,
-    url,
-    summary: summary || null,
-  }
-
   const clearAll = () => {
     setTitle('')
     setUrl('')
@@ -28,6 +22,11 @@ const App = () => {
   }
 
   const post = async () => {
+    const amusement = {
+      title,
+      url,
+      summary: summary || 'この投稿には説明文がありません',
+    }
     switch (category) {
       case 'aquarium':
         await API.graphql(graphqlOperation(addAquarium, { amusement }))
