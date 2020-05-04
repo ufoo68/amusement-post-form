@@ -59,7 +59,7 @@ const App = () => {
       </div>
       <div className="title">
         <div>タイトル</div>
-        <Input value={title} onChange={(e) => {
+        <Input value={title} className="titleInput" onChange={(e) => {
           setTitle(e.target.value)
           setWritedTitle(!!e.target.value)
         }} />
